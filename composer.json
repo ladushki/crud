@@ -1,0 +1,102 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ladushki/form.git"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "fideloper/proxy": "^4.0",
+        "jeroennoten/laravel-adminlte": "^2.0",
+        "laracasts/utilities": "^3.0",
+        "laraplus/form": "dev-dev-php73",
+        "laravel/framework": "^6.0",
+        "laravel/tinker": "^1.0"
+    },
+    "require-dev": {
+        "facade/ignition": "^1.4",
+        "fzaninotto/faker": "^1.8",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^8.0",
+        "sensiolabs/security-checker": "^6.0",
+        "orchestra/testbench": "4.0.*",
+        "squizlabs/php_codesniffer": "^2.8",
+        "phpmd/phpmd" : "@stable",
+        "phploc/phploc": "5.0.*",
+        "sebastian/phpcpd": "4.1.*",
+        "bmitch/codor": "^1.1.1",
+        "slevomat/coding-standard": "^2.0",
+        "jakub-onderka/php-parallel-lint": "^1.0.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "resources/helpers.php"
+        ],
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "code-standards": [
+            "vendor/bin/parallel-lint --exclude vendor .",
+            "vendor/bin/phpcs -n --standard=phpcsfunctions.xml app/",
+            "vendor/bin/phpcs --config-set ignore_warnings_on_exit 1",
+            "vendor/bin/phpcs -n --standard=phpcs.xml app/",
+            "vendor/bin/phpmd app/ text phpmd.xml",
+            "vendor/bin/phpcs -n --standard=phpcsdocblocks.xml app/",
+            "vendor/bin/phpcs --standard=codor.xml app -spn",
+            "vendor/bin/phploc app",
+            "vendor/bin/phpcpd app"
+        ],
+        "fix": [
+            "vendor/bin/phpcbf -n --standard=phpcsfunctions.xml app/",
+            "vendor/bin/phpcbf -n --standard=phpcs.xml app/",
+            "vendor/bin/phpcbf -n --standard=phpcsdocblocks.xml app/",
+            "vendor/bin/phpcbf --standard=codor.xml src -spn"
+        ],
+        "phpunit": [
+            "php vendor/bin/phpunit"
+        ]
+    }
+}
